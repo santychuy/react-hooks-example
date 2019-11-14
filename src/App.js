@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { useForm } from './hooks/useForm';
+import { useFetch } from './hooks/useFetch';
 
-function App() {
+const App = () => {
+  const [{ email, password, firstName }, handleChanges] = useForm({ email: '', password: '', firstName: '' });
+
+  const [count, setCount] = useState(0);
+  const {data} = useFetch(`http://numbersapi.com/${count}/trivia`);
+
+  //http://numbersapi.com/43/trivia
+
+  /* //Component Did Mount
+  useEffect(() => {
+    console.log('Component Did Mount');
+
+    return () => {
+      console.log('Unmount');
+    }
+  }, []);
+
+  //Cuando el valor cambio 'email', se ejecuta la función
+  useEffect(() => {
+    console.log('Email');
+  }, [email]); */
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>{!data ? "Loading..." : data}</div>
+      <div>Count: {count}</div>
+      <button onClick={() => setCount(c => c + 1)}>Increment</button>
+
+      <input name='email' value={email} onChange={handleChanges} placeholder='Email' />
+      <input name='firstName' value={firstName} onChange={handleChanges} placeholder='First Name' />
+      <input type='password' name='password' value={password} onChange={handleChanges} placeholder='Password' />
     </div>
   );
 }
