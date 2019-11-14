@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { useForm } from './hooks/useForm';
 import { useFetch } from './hooks/useFetch';
@@ -8,8 +8,6 @@ const App = () => {
 
   const [count, setCount] = useState(0);
   const {data} = useFetch(`http://numbersapi.com/${count}/trivia`);
-
-  //http://numbersapi.com/43/trivia
 
   /* //Component Did Mount
   useEffect(() => {
